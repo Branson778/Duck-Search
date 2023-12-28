@@ -1,4 +1,4 @@
-package org.jointheleague.api.duck;
+package org.jointheleague.level7.duck;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
