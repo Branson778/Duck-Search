@@ -1,8 +1,12 @@
 package org.jointheleague.level7.duck.repository;
 
 import org.jointheleague.level7.duck.DuckSearchApplication;
+import org.jointheleague.level7.duck.repository.dto.Result;
+import org.jointheleague.level7.duck.repository.dto.WeaResponse;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.List;
 
 @Repository
 public class WeaRepository {
@@ -18,18 +22,19 @@ public class WeaRepository {
     //    return "Searching for astronomical data related to the location " + query + " on the date "+ $date +".";
     //}
 
-    public String getResults(String query, String $date) {
+    public List<Result> getResults(String query, String $date) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .queryParam("fo", "json")
-                        .queryParam("at", "results")
+                        //.queryParam("fo", "json")
+                        //.queryParam("at", "results")
                         .queryParam("q", query)
                         .queryParam("dt", $date)
                         .queryParam("k", DuckSearchApplication.apiToken)
                         .build()
                 )
                 .retrieve()
-                .bodyToMono(String.class)
-                .block();
+                .bodyToMono(WeaResponse.class)
+                .block()
+                .getResults();
     }
 }
