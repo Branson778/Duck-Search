@@ -7,8 +7,12 @@ import java.util.List;
 
 @Service
 public class WeaService {
-private final WeaRepository weaRepository = new WeaRepository();
-    public List<Result> getResults(String query, String $date){
-        return weaRepository.getResults(query, $date);
+    private WeaRepository weaRepository;
+    public WeaService (WeaRepository weaRepository){
+        this.weaRepository = weaRepository;
+    }
+
+    public List<Result> getResults(String query){
+        return weaRepository.getResults(query);
     }
 }

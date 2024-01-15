@@ -12,8 +12,9 @@ import java.util.List;
 public class WeaRepository {
     private final WebClient webClient;
 
-    public static final String baseUrl = "http://api.weatherapi.com/v1/astronomy.json";
+    public static final String baseUrl = "http://api.weatherapi.com/v1/astronomy.json?key="+DuckSearchApplication.apiToken+"&q=New%York";
 
+    public WeaRepository(WebClient webClientMock){this.webClient = webClientMock;}
     public WeaRepository(){
         webClient = WebClient.builder().baseUrl(baseUrl).build();
     }
@@ -22,14 +23,14 @@ public class WeaRepository {
     //    return "Searching for astronomical data related to the location " + query + " on the date "+ $date +".";
     //}
 
-    public List<Result> getResults(String query, String $date) {
+    public List<Result> getResults(String query) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         //.queryParam("fo", "json")
                         //.queryParam("at", "results")
+                        //.queryParam("key", DuckSearchApplication.apiToken)
                         .queryParam("q", query)
-                        .queryParam("dt", $date)
-                        .queryParam("k", DuckSearchApplication.apiToken)
+                        //.queryParam("dt", $date)
                         .build()
                 )
                 .retrieve()
@@ -37,4 +38,5 @@ public class WeaRepository {
                 .block()
                 .getResults();
     }
+
 }

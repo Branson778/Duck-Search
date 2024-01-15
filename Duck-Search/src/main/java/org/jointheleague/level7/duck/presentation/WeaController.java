@@ -28,8 +28,8 @@ public class WeaController {
             @ApiResponse(code = 200, message = "Result(s) found"),
             @ApiResponse(code = 404, message = "Result(s) not found")
     })
-    public List<Result> getResults(@RequestParam(value="q") String query, @RequestParam(value="dt") String $date){
-        List<Result> results = weaService.getResults(query, $date);
+    public List<Result> getResults(@RequestParam(value="q") String query){
+        List<Result> results = weaService.getResults(query);
         if(CollectionUtils.isEmpty(results)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Result(s) not found.");
         }
