@@ -6,7 +6,7 @@ import java.util.List;
 
 public class WeaResponse {
 
-    private List<Result> results = null;
+    private List<Result> results;
 
     @JsonProperty("results")
     public List<Result> getResults() {

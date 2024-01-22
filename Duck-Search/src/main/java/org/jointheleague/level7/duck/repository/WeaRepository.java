@@ -12,7 +12,8 @@ import java.util.List;
 public class WeaRepository {
     private final WebClient webClient;
 
-    public static final String baseUrl = "http://api.weatherapi.com/v1/astronomy.json?key="+DuckSearchApplication.apiToken+"&q=New%York";
+    public static final String baseUrl = "http://api.weatherapi.com/v1/astronomy.json";
+    //public static final String baseUrl = "http://api.weatherapi.com/v1/astronomy.json?key="+DuckSearchApplication.apiToken+"&q=";
 
     public WeaRepository(WebClient webClientMock){this.webClient = webClientMock;}
     public WeaRepository(){
@@ -24,11 +25,16 @@ public class WeaRepository {
     //}
 
     public List<Result> getResults(String query) {
+       // String blockString = webClient.get()
+       //         .uri(uriBuilder -> uriBuilder.build())
+        //        .retrieve()
+         //       .bodyToMono(String.class)
+          //      .block();
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         //.queryParam("fo", "json")
                         //.queryParam("at", "results")
-                        //.queryParam("key", DuckSearchApplication.apiToken)
+                        .queryParam("key", DuckSearchApplication.apiToken)
                         .queryParam("q", query)
                         //.queryParam("dt", $date)
                         .build()

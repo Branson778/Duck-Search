@@ -63,10 +63,42 @@ public class WeaControllerIntTest {
 
 
         //then
-        MvcResult mvcResult = mockMvc.perform(get("/searchLocResults?q="+query))
-                        .andDo(print())
-                                .andExpect(status().isOk())
-                                        .andExpect(jsonPath("$[0].title", is()))
-        assertEquals(expectedResults, actualWeaResults);
+
+        MvcResult mvcResult;
+        try {
+            mvcResult = mockMvc.perform(get("/searchWeaResults?q=" + query))
+                    .andDo(print())
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$[0].country", is("COUNTRY")))
+                    .andExpect(jsonPath("$[0].lat", is(0)))
+                    .andExpect(jsonPath("$[0].localtime", is("LOCALTIME")))
+                    .andExpect(jsonPath("$[0].moonrise", is("MOONRISE")))
+                    .andExpect(jsonPath("$[0].localtime_epoch", is(0)))
+                    .andExpect(jsonPath("$[0].moon_illumination", is("MOONILLUMINATION")))
+                    .andExpect(jsonPath("$[0].moon_phase", is("MOONPHASE")))
+                    .andExpect(jsonPath("$[0].moonset", is("MOONSET")))
+                    .andExpect(jsonPath("$[0].tz_id", is("TZID")))
+                    .andExpect(jsonPath("$[0].name", is("NAME")))
+                    .andExpect(jsonPath("$[0].region", is("REGION")))
+                    .andExpect(jsonPath("$[0].sunrise", is("SUNRISE")))
+                    .andExpect(jsonPath("$[0].sunset", is("SUNSET")))
+                    .andReturn();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+        assertEquals(MediaType.APPLICATION_JSON_VALUE, mvcResult.getResponse().getContentType());
+    }
+    @Test
+    public void givenBadQuery_whenSearchForResults_thenIsNotFound() throws Exception {
+        //given
+        String query = "Java";
+
+        //when
+        //then
+        mockMvc.perform(get("/searchLocResults?q=" + query))
+                .andDo(print())
+                .andExpect(status().isNotFound());
     }
 }
