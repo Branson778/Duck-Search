@@ -6,15 +6,15 @@ import java.util.List;
 
 public class WeaResponse {
 
-    private List<Result> results;
+    private List<Results> results;
 
     @JsonProperty("results")
-    public List<Result> getResults() {
+    public List<Results> getResults() {
         return results;
     }
 
     @JsonProperty("results")
-    public void setResults(List<Result> results) {
+    public void setResults(List<Results> results) {
         this.results = results;
     }
 

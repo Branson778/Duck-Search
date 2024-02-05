@@ -1,9 +1,13 @@
 package org.jointheleague.level7.duck.presentation;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import org.jointheleague.level7.duck.repository.dto.Result;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
+import org.jointheleague.level7.duck.repository.dto.Results;
 import org.jointheleague.level7.duck.service.WeaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
@@ -22,16 +26,19 @@ public class WeaController {
         this.weaService = weaService;
     }
     @GetMapping("/searchWeaResults")
-    @ApiOperation(value = "Searches for astronomical data matching the searched location and date.",
-            notes = "The date of the search cannot be before the 1st of January, 2015 and must be in yyyy-MM-dd format. The location must be latitude and longitude to the decimal degree, a city name, US zip code, UK postcode, Canada postal code, metar code, iata/digit airport code, or ip adress.",
-            response = Result.class)
+    @Operation(summary = "Searches for astronomical data matching the searched location and date.",
+            description = "The date of the search cannot be before the 1st of January, 2015 and must be in yyyy-MM-dd format. The location must be latitude and longitude to the decimal degree, a city name, US zip code, UK postcode, Canada postal code, metar code, iata/digit airport code, or ip adress.")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Result(s) found"),
-            @ApiResponse(code = 404, message = "Result(s) not found")
+            @ApiResponse(responseCode = "200", description = "Result(s) found", content = {@Content(mediaType="application/json",schema=@Schema(implementation=Results.class))}),
+            @ApiResponse(responseCode = "400", description = "Result(s) not found, an error occurred with the parameter or url"),
+            @ApiResponse(responseCode = "401", description = "Result(s) not found, an error occurred with the api key"),
+            @ApiResponse(responseCode = "403", description = "Result(s) not found, a large error occurred with the api key"),
+            @ApiResponse(responseCode = "404", description = "Result(s) not found")
+//, content = {@Content(mediaType="application/json",schema=@Schema(implementation=Result.class))}
     })
-    public List<Result> getResults(@RequestParam(value="q") String query){
-        List<Result> results = weaService.getResults(query);
-        if(CollectionUtils.isEmpty(results)){
+    public List<Results> getResults(@RequestParam(value="q") String query){
+        List<Results> results = weaService.getResults(query);
+        if(results==null || results.size()==0){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Result(s) not found.");
         }
         //return results;

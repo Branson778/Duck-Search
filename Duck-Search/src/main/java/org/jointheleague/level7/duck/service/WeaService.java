@@ -1,6 +1,6 @@
 package org.jointheleague.level7.duck.service;
 import org.jointheleague.level7.duck.repository.WeaRepository;
-import org.jointheleague.level7.duck.repository.dto.Result;
+import org.jointheleague.level7.duck.repository.dto.Results;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +12,7 @@ public class WeaService {
         this.weaRepository = weaRepository;
     }
 
-    public List<Result> getResults(String query){
+    public List<Results> getResults(String query){
         return weaRepository.getResults(query);
     }
 }
