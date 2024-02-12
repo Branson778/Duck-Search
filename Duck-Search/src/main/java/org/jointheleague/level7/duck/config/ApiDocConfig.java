@@ -10,6 +10,6 @@ public class ApiDocConfig {
     @Bean
     public OpenAPI usersMicroserviceOpenAPI() {
         return new OpenAPI()
-                .info(new Info().title("Duck Application!").description("This is a duck application").version("666666"));
+                .info(new Info().title("Duck Search - Weather API Astronomy Search").description("This application searches for the current date's astronomy data for a specified location.").version("0.6"));
     }
 }

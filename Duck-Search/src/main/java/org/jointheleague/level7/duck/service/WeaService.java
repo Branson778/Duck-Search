@@ -12,7 +12,7 @@ public class WeaService {
         this.weaRepository = weaRepository;
     }
 
-    public List<Results> getResults(String query){
+    public Results getResults(String query){
         return weaRepository.getResults(query);
     }
 }

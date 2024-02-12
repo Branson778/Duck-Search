@@ -17,7 +17,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "moonrise",
     "moonset",
     "moon_phase",
-    "moon_illumination"
+    "moon_illumination",
+    "is_moon_up",
+    "is_sun_up"
 })
 
 public class Astro {
@@ -33,7 +35,11 @@ public class Astro {
     @JsonProperty("moon_phase")
     private String moonPhase;
     @JsonProperty("moon_illumination")
-    private String moonIllumination;
+    private Integer moonIllumination;
+    @JsonProperty("is_moon_up")
+    private Integer isMoonUp;
+    @JsonProperty("is_sun_up")
+    private Integer isSunUp;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -88,13 +94,33 @@ public class Astro {
     }
 
     @JsonProperty("moon_illumination")
-    public String getMoonIllumination() {
+    public Integer getMoonIllumination() {
         return moonIllumination;
     }
 
     @JsonProperty("moon_illumination")
-    public void setMoonIllumination(String moonIllumination) {
+    public void setMoonIllumination(Integer moonIllumination) {
         this.moonIllumination = moonIllumination;
+    }
+
+    @JsonProperty("is_moon_up")
+    public Integer getIsMoonUp() {
+        return isMoonUp;
+    }
+
+    @JsonProperty("is_moon_up")
+    public void setIsMoonUp(Integer isMoonUp) {
+        this.isMoonUp = isMoonUp;
+    }
+
+    @JsonProperty("is_sun_up")
+    public Integer getIsSunUp() {
+        return isSunUp;
+    }
+
+    @JsonProperty("is_sun_up")
+    public void setIsSunUp(Integer isSunUp) {
+        this.isSunUp = isSunUp;
     }
 
     @JsonAnyGetter
@@ -134,6 +160,14 @@ public class Astro {
         sb.append("moonIllumination");
         sb.append('=');
         sb.append(((this.moonIllumination == null)?"<null>":this.moonIllumination));
+        sb.append(',');
+        sb.append("is_moon_up");
+        sb.append('=');
+        sb.append(((this.isMoonUp == null)?"<null>":this.isMoonUp));
+        sb.append(',');
+        sb.append("is_sun_up");
+        sb.append('=');
+        sb.append(((this.isSunUp == null)?"<null>":this.isSunUp));
         sb.append(',');
         sb.append("additionalProperties");
         sb.append('=');

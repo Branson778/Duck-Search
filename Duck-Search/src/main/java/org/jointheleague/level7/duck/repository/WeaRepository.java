@@ -30,7 +30,7 @@ public class WeaRepository {
     //    return "Searching for astronomical data related to the location " + query + " on the date "+ $date +".";
     //}
 
-    public List<Results> getResults(String query) {
+    public Results getResults(String query) {
        // String blockString = webClient.get()
        //         .uri(uriBuilder -> uriBuilder.build())
         //        .retrieve()
@@ -40,21 +40,20 @@ public class WeaRepository {
         System.out.println(query);
         //return null;
         return webClient.get()
-                .uri(uriBuilder -> { //System.out.println(uriBuilder.queryParam("key", DuckSearchApplication.apiToken)
-                                //.queryParam("q", query).build().toASCIIString());
+                .uri(uriBuilder -> { System.out.println(uriBuilder.queryParam("key", DuckSearchApplication.apiToken)
+                                .queryParam("q", query).build().toASCIIString());
                     return uriBuilder
                         //.queryParam("fo", "json")
                         //.queryParam("at", "results")
-                        .queryParam("key", DuckSearchApplication.apiToken)
-                        .queryParam("q", query)
+                        //.queryParam("key", DuckSearchApplication.apiToken)
+                        //.queryParam("q", query)
                         //.queryParam("dt", $date)
                         .build();
                 }
                 )
                 .retrieve()
-                .bodyToMono(WeaResponse.class)
-                .block()
-                .getResults();
+                .bodyToMono(Results.class)
+                .block();
 
     }
 
